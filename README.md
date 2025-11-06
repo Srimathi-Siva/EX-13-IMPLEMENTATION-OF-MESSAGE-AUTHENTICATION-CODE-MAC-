@@ -4,7 +4,8 @@
 ## AIM:
 
 To implement a Message Authentication Code (MAC) using a shared secret key and a hash function to verify the integrity and authenticity of a message.
-
+## NAME: SRI MATHI S
+## REGISTER NO : 212224230272
 
 ## ALGORITHM:
 
@@ -18,9 +19,52 @@ To implement a Message Authentication Code (MAC) using a shared secret key and a
 
 
 ## PROGRAM:
+```
+#include <stdio.h> 
+#include <string.h>
+#define KEY "secretkey" // Shared secret key
+// Function to calculate a simple MAC using XOR
+unsigned int calculate_mac(const char *message, const char *key) 
+{ 
+unsigned int mac = 0;
+int i;
+for (i = 0; i < strlen(message); i++)
 
+{ mac ^= message[i];
+}
+for (i = 0; i < strlen(key); i++) 
+{ mac ^= key[i];
+}
+return mac;
+}
+int main() 
+{
+char message[256];
+unsigned int mac_sent, mac_received;
+// Input message from user printf("Enter the message: "); 
+fgets(message, sizeof(message), stdin);
+message[strcspn(message, "\n")] = '\0'; // Remove newline character
+// Sender generates MAC
+mac_sent = calculate_mac(message, KEY); 
+printf("Generated MAC (sent): %u\n", mac_sent);
+// Simulate receiver calculating MAC using same key 
+mac_received = calculate_mac(message, KEY); 
+printf("Calculated MAC (received): %u\n", mac_received);
+// Check if the MACs match
+if (mac_sent == mac_received) { 
+printf("Message is authentic.\n");
+} 
+else 
+{
+
+printf("Message integrity check failed.\n");
+}
+return 0;
+}
+```
 ## OUTPUT:
- 
+ <img width="590" height="122" alt="image" src="https://github.com/user-attachments/assets/657ad336-9d1a-40c0-8d38-596583aec55a" />
+
 ## RESULT:
 
 The Message Authentication Code (MAC) was implemented successfully, allowing the verification	of	message	integrity	and	authenticity	using	a	shared	secret	key.
